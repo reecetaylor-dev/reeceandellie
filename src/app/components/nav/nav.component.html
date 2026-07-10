@@ -1,0 +1,45 @@
+<nav [ngClass]="scrolled() ? 'bg-ivory/95 shadow-sm backdrop-blur-sm' : 'bg-transparent'"
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+
+    <button (click)="scrollTo('hero')"
+      class="font-serif text-2xl tracking-widest text-gold hover:text-gold-dark transition-colors">
+      R &amp; E
+    </button>
+
+    <ul class="hidden md:flex gap-8 font-sans text-xs tracking-widest uppercase">
+      @for (link of links; track link.id) {
+        <li>
+          <button (click)="scrollTo(link.id)"
+            class="text-charcoal hover:text-gold transition-colors">
+            {{ link.label }}
+          </button>
+        </li>
+      }
+    </ul>
+
+    <button (click)="menuOpen.set(!menuOpen())" class="md:hidden flex flex-col gap-1.5 p-1">
+      <span class="block w-6 h-px bg-charcoal transition-all duration-300"
+        [ngClass]="menuOpen() ? 'rotate-45 translate-y-2' : ''"></span>
+      <span class="block w-6 h-px bg-charcoal transition-all duration-300"
+        [ngClass]="menuOpen() ? 'opacity-0' : ''"></span>
+      <span class="block w-6 h-px bg-charcoal transition-all duration-300"
+        [ngClass]="menuOpen() ? '-rotate-45 -translate-y-2' : ''"></span>
+    </button>
+  </div>
+
+  @if (menuOpen()) {
+    <div class="md:hidden bg-ivory border-t border-gold-light">
+      <ul class="flex flex-col py-4">
+        @for (link of links; track link.id) {
+          <li>
+            <button (click)="scrollTo(link.id)"
+              class="w-full py-3 px-6 text-left font-sans text-xs tracking-widest uppercase text-charcoal hover:text-gold transition-colors">
+              {{ link.label }}
+            </button>
+          </li>
+        }
+      </ul>
+    </div>
+  }
+</nav>

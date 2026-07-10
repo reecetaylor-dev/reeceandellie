@@ -1,1 +1,35 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-ivory: #FAF8F4;
+    --color-cream: #F3EFE6;
+    --color-gold: #C9A96E;
+    --color-gold-light: #E8D5A3;
+    --color-gold-dark: #A07840;
+    --color-charcoal: #2C2C2C;
+    --color-stone: #8C8070;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    @apply bg-ivory text-charcoal font-sans;
+  }
+
+  h1, h2, h3, h4, h5 {
+    @apply font-serif;
+  }
+
+  ::selection {
+    @apply bg-gold-light text-charcoal;
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { @apply bg-cream; }
+  ::-webkit-scrollbar-thumb { @apply bg-gold rounded-sm; }
+}

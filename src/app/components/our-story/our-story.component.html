@@ -1,0 +1,73 @@
+<section id="story" class="py-28 bg-ivory">
+  <div class="max-w-5xl mx-auto px-6">
+
+    <div class="text-center mb-20">
+      <p class="font-sans text-xs tracking-widest3 uppercase text-gold mb-4">How It All Began</p>
+      <h2 class="font-serif font-light text-charcoal text-4xl md:text-5xl mb-4">Our Story</h2>
+      <div class="flex items-center justify-center gap-3">
+        <div class="h-px w-12 bg-gold/40"></div>
+        <div class="w-1.5 h-1.5 rounded-full bg-gold/60"></div>
+        <div class="h-px w-12 bg-gold/40"></div>
+      </div>
+    </div>
+
+    <!-- Desktop timeline -->
+    <div class="hidden md:block relative">
+      <div class="absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-gold/40 via-gold/20 to-transparent -translate-x-1/2"></div>
+
+      <div class="flex flex-col gap-16">
+        @for (event of timeline; track event.year; let odd = $odd) {
+          <div class="relative flex items-center" [class.flex-row-reverse]="odd">
+
+            <!-- Text side -->
+            <div class="w-4/12 px-6" [class.text-right]="!odd">
+              <p class="font-sans text-xs tracking-widest3 uppercase text-gold mb-2">{{ event.year }}</p>
+              <h3 class="font-serif text-2xl text-charcoal mb-2">{{ event.title }}</h3>
+              <p class="font-sans text-sm text-stone leading-relaxed">{{ event.description }}</p>
+            </div>
+
+            <!-- Centre photo -->
+            <div class="w-4/12 flex justify-center flex-shrink-0 z-10">
+              <div class="w-56 h-56 rounded-full border-2 border-gold/50 overflow-hidden bg-cream shadow-sm flex items-center justify-center">
+                @if (hasPhoto(event.photo)) {
+                  <img [src]="event.photo" [alt]="event.title"
+                    class="w-full h-full object-cover"
+                    (error)="onPhotoError(event.photo)">
+                } @else {
+                  <span class="font-serif italic text-gold text-3xl">R &amp; E</span>
+                }
+              </div>
+            </div>
+
+            <!-- Empty side -->
+            <div class="w-4/12"></div>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Mobile timeline — photo above text, stacked -->
+    <div class="md:hidden flex flex-col gap-12">
+      @for (event of timeline; track event.year) {
+        <div class="flex flex-col items-center gap-4 text-center">
+          <div class="w-40 h-40 rounded-full border-2 border-gold/50 overflow-hidden bg-cream shadow-sm flex-shrink-0 flex items-center justify-center">
+            @if (hasPhoto(event.photo)) {
+              <img [src]="event.photo" [alt]="event.title"
+                class="w-full h-full object-cover"
+                (error)="onPhotoError(event.photo)">
+            } @else {
+              <span class="font-serif italic text-gold text-2xl">R &amp; E</span>
+            }
+          </div>
+          <div>
+            <p class="font-sans text-xs tracking-widest3 uppercase text-gold mb-1">{{ event.year }}</p>
+            <h3 class="font-serif text-xl text-charcoal mb-1">{{ event.title }}</h3>
+            <p class="font-sans text-sm text-stone leading-relaxed">{{ event.description }}</p>
+          </div>
+          <div class="h-px w-16 bg-gold/20"></div>
+        </div>
+      }
+    </div>
+
+  </div>
+</section>

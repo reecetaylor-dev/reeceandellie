@@ -1,0 +1,100 @@
+<section id="rsvp" class="py-28 bg-cream">
+  <div class="max-w-2xl mx-auto px-6">
+
+    <div class="text-center mb-16">
+      <p class="font-sans text-xs tracking-widest3 uppercase text-gold mb-4">Join Us</p>
+      <h2 class="font-serif font-light text-charcoal text-4xl md:text-5xl mb-4">RSVP</h2>
+      <div class="flex items-center justify-center gap-3 mb-6">
+        <div class="h-px w-12 bg-gold/40"></div>
+        <div class="w-1.5 h-1.5 rounded-full bg-gold/60"></div>
+        <div class="h-px w-12 bg-gold/40"></div>
+      </div>
+      <p class="font-sans text-sm text-stone font-light leading-relaxed">
+        Please respond by [RSVP Deadline TBC].<br>
+        We would love to know if you can make it.
+      </p>
+    </div>
+
+    @if (submitted()) {
+      <div class="border border-gold/40 p-12 text-center bg-white/50">
+        <p class="font-serif italic text-gold text-3xl mb-4">Thank you!</p>
+        <p class="font-sans text-sm text-stone font-light">
+          We've received your RSVP and can't wait to celebrate with you.
+        </p>
+        <button (click)="reset()"
+          class="mt-8 font-sans text-xs tracking-widest4 uppercase text-gold border-b border-gold hover:text-gold-dark transition-colors">
+          Submit another response
+        </button>
+      </div>
+    } @else {
+      <form (ngSubmit)="submit()" #f="ngForm" class="flex flex-col gap-7">
+
+        <div class="flex flex-col gap-2">
+          <label class="font-sans text-xs tracking-widest4 uppercase text-stone">Full Name *</label>
+          <input type="text" name="name" [(ngModel)]="form.name" required
+            class="border-b border-stone/40 bg-transparent py-3 font-sans text-sm text-charcoal outline-none focus:border-gold transition-colors placeholder:text-stone/40"
+            placeholder="Your name">
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label class="font-sans text-xs tracking-widest4 uppercase text-stone">Email Address</label>
+          <input type="email" name="email" [(ngModel)]="form.email"
+            class="border-b border-stone/40 bg-transparent py-3 font-sans text-sm text-charcoal outline-none focus:border-gold transition-colors placeholder:text-stone/40"
+            placeholder="your@email.com">
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <label class="font-sans text-xs tracking-widest4 uppercase text-stone">Will you be attending? *</label>
+          <div class="flex gap-6">
+            @for (opt of attendingOptions; track opt.value) {
+              <label class="flex items-center gap-3 cursor-pointer">
+                <div class="relative w-4 h-4 border flex-shrink-0"
+                  [class.border-gold]="form.attending === opt.value"
+                  [class.border-stone]="form.attending !== opt.value">
+                  @if (form.attending === opt.value) {
+                    <div class="absolute inset-[3px] bg-gold"></div>
+                  }
+                </div>
+                <input type="radio" name="attending" [value]="opt.value" [(ngModel)]="form.attending" class="sr-only">
+                <span class="font-sans text-sm text-charcoal font-light">{{ opt.label }}</span>
+              </label>
+            }
+          </div>
+        </div>
+
+        @if (form.attending === 'yes') {
+          <div class="flex flex-col gap-2">
+            <label class="font-sans text-xs tracking-widest4 uppercase text-stone">Number of Guests (including yourself)</label>
+            <select name="guests" [(ngModel)]="form.guests"
+              class="border-b border-stone/40 bg-transparent py-3 font-sans text-sm text-charcoal outline-none focus:border-gold transition-colors">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label class="font-sans text-xs tracking-widest4 uppercase text-stone">Dietary Requirements</label>
+            <input type="text" name="dietary" [(ngModel)]="form.dietary"
+              class="border-b border-stone/40 bg-transparent py-3 font-sans text-sm text-charcoal outline-none focus:border-gold transition-colors placeholder:text-stone/40"
+              placeholder="e.g. Vegetarian, gluten free, allergies…">
+          </div>
+        }
+
+        <div class="flex flex-col gap-2">
+          <label class="font-sans text-xs tracking-widest4 uppercase text-stone">Message for the Happy Couple</label>
+          <textarea name="message" [(ngModel)]="form.message" rows="3"
+            class="border-b border-stone/40 bg-transparent py-3 font-sans text-sm text-charcoal outline-none focus:border-gold transition-colors resize-none placeholder:text-stone/40"
+            placeholder="Leave us a kind word…"></textarea>
+        </div>
+
+        <button type="submit" [disabled]="f.invalid"
+          class="mt-4 py-4 px-10 self-center font-sans text-xs tracking-widest3 uppercase bg-charcoal text-white hover:bg-gold transition-colors duration-300 disabled:opacity-40 disabled:cursor-not-allowed">
+          Send RSVP
+        </button>
+
+      </form>
+    }
+  </div>
+</section>

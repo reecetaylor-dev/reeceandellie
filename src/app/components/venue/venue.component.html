@@ -1,0 +1,80 @@
+<section id="venue" class="py-28 bg-cream">
+  <div class="max-w-6xl mx-auto px-6">
+
+    <div class="text-center mb-20">
+      <p class="font-sans text-xs tracking-widest3 uppercase text-gold mb-4">Where We Celebrate</p>
+      <h2 class="font-serif font-light text-charcoal text-4xl md:text-5xl mb-4">The Venue</h2>
+      <div class="flex items-center justify-center gap-3">
+        <div class="h-px w-12 bg-gold/40"></div>
+        <div class="w-1.5 h-1.5 rounded-full bg-gold/60"></div>
+        <div class="h-px w-12 bg-gold/40"></div>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-12 items-center mb-20">
+      <!-- Venue image -->
+      <div class="relative aspect-[4/3] bg-gradient-to-br from-cream to-gold-light/30 overflow-hidden">
+        <img src="assets/venue.jpg" alt="Bawtry Hall"
+          class="w-full h-full object-cover"
+          (error)="imgError = true"
+          [class.hidden]="imgError">
+        @if (imgError) {
+          <div class="absolute inset-0 flex items-center justify-center">
+            <p class="font-serif italic text-stone/60 text-xl">Bawtry Hall</p>
+          </div>
+        }
+        <div class="absolute inset-0 border border-gold/20 pointer-events-none"></div>
+      </div>
+
+      <div class="flex flex-col gap-8">
+        <div>
+          <h3 class="font-serif text-3xl text-charcoal mb-3">Bawtry Hall</h3>
+          <p class="font-sans text-sm text-stone leading-relaxed">
+            Set in stunning South Yorkshire countryside, Bawtry Hall is one of the region's most prestigious wedding venues. This magnificent Grade II listed Georgian manor house provides an exquisite backdrop for our special day.
+          </p>
+        </div>
+
+        <div class="flex flex-col gap-5">
+          @for (detail of details; track detail.label) {
+            <div class="flex gap-4 items-start">
+              <div class="w-8 h-8 flex-shrink-0 flex items-center justify-center border border-gold/40 mt-0.5">
+                <span class="text-gold text-sm">{{ detail.icon }}</span>
+              </div>
+              <div>
+                <p class="font-sans text-xs tracking-widest4 uppercase text-gold mb-1">{{ detail.label }}</p>
+                <p class="font-sans text-sm text-charcoal">{{ detail.value }}</p>
+              </div>
+            </div>
+          }
+        </div>
+
+        <a href="https://maps.google.com/?q=Bawtry+Hall,+Bawtry,+Doncaster" target="_blank"
+          class="inline-flex items-center gap-2 font-sans text-xs tracking-widest4 uppercase text-gold border border-gold px-6 py-3 hover:bg-gold hover:text-white transition-all duration-300 w-fit">
+          View on Map
+        </a>
+      </div>
+    </div>
+
+    <!-- Day schedule -->
+    <div class="border-t border-gold/20 pt-16">
+      <h3 class="font-serif text-center text-2xl text-charcoal mb-10">The Day</h3>
+      <div class="flex flex-col md:flex-row justify-center max-w-3xl mx-auto">
+        @for (event of schedule; track event.time; let last = $last) {
+          <div class="flex md:flex-col items-start md:items-center gap-4 md:gap-3 flex-1">
+            <div class="flex-shrink-0 flex flex-col md:flex-row items-center gap-0 md:w-full">
+              <div class="hidden md:block h-px flex-1 bg-gold/20" [class.opacity-0]="$index === 0"></div>
+              <div class="w-2.5 h-2.5 rounded-full border-2 border-gold bg-cream"></div>
+              <div class="hidden md:block h-px flex-1 bg-gold/20" [class.opacity-0]="last"></div>
+              <div class="block md:hidden w-px h-8 bg-gold/20" [class.opacity-0]="last"></div>
+            </div>
+            <div class="md:text-center pb-8 md:pb-0">
+              <p class="font-sans text-xs tracking-widest4 uppercase text-gold mb-1">{{ event.time }}</p>
+              <p class="font-serif text-charcoal text-lg">{{ event.label }}</p>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+  </div>
+</section>

@@ -1,0 +1,27 @@
+<section id="countdown" class="py-28 bg-cream">
+  <div class="max-w-5xl mx-auto px-6 text-center">
+
+    <p class="font-sans text-xs tracking-widest3 uppercase text-gold mb-4">Counting Down</p>
+    <h2 class="font-serif font-light text-charcoal text-4xl md:text-5xl mb-3">The Big Day</h2>
+    <p class="font-serif italic text-stone text-xl mb-16">Saturday, 6th June 2027</p>
+
+    <div class="grid grid-cols-4 gap-4 md:gap-8 max-w-2xl mx-auto">
+      @for (unit of units(); track unit.label) {
+        <div class="flex flex-col items-center">
+          <div class="w-full aspect-square flex items-center justify-center border border-gold/40 bg-white/60 rounded-sm mb-3">
+            <span class="font-serif text-3xl md:text-5xl font-light text-charcoal">
+              {{ pad(unit.value) }}
+            </span>
+          </div>
+          <p class="font-sans text-xs tracking-widest4 uppercase text-stone">{{ unit.label }}</p>
+        </div>
+      }
+    </div>
+
+    <div class="mt-16 flex items-center justify-center gap-4">
+      <div class="h-px w-16 bg-gold/30"></div>
+      <p class="font-serif italic text-stone text-lg">We cannot wait to celebrate with you</p>
+      <div class="h-px w-16 bg-gold/30"></div>
+    </div>
+  </div>
+</section>

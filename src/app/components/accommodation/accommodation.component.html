@@ -1,0 +1,77 @@
+<section id="accommodation" class="py-28 bg-ivory">
+  <div class="max-w-6xl mx-auto px-6">
+
+    <div class="text-center mb-20">
+      <p class="font-sans text-xs tracking-widest3 uppercase text-gold mb-4">Where to Stay</p>
+      <h2 class="font-serif font-light text-charcoal text-4xl md:text-5xl mb-4">Accommodation</h2>
+      <div class="flex items-center justify-center gap-3">
+        <div class="h-px w-12 bg-gold/40"></div>
+        <div class="w-1.5 h-1.5 rounded-full bg-gold/60"></div>
+        <div class="h-px w-12 bg-gold/40"></div>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-12 items-start">
+
+      <!-- Left — hotel info -->
+      <div class="flex flex-col gap-8">
+        <div>
+          <h3 class="font-serif text-3xl text-charcoal mb-3">The Crown &amp; Anchor Hotel</h3>
+          <p class="font-sans text-sm text-stone leading-relaxed">
+            We have arranged for guests to stay at The Crown &amp; Anchor, a charming hotel just a two-minute walk from Bawtry Hall. With its warm atmosphere and convenient location, it's the perfect base for the evening — meaning no long journeys home after the celebrations.
+          </p>
+        </div>
+
+        <div class="flex flex-col gap-5">
+          @for (detail of details; track detail.label) {
+            <div class="flex gap-4 items-start">
+              <div class="w-8 h-8 flex-shrink-0 flex items-center justify-center border border-gold/40 mt-0.5">
+                <span class="text-gold text-sm">{{ detail.icon }}</span>
+              </div>
+              <div>
+                <p class="font-sans text-xs tracking-widest4 uppercase text-gold mb-1">{{ detail.label }}</p>
+                <p class="font-sans text-sm text-charcoal">{{ detail.value }}</p>
+              </div>
+            </div>
+          }
+        </div>
+
+        <a href="https://maps.google.com/?q=Crown+and+Anchor+Hotel+Bawtry" target="_blank"
+          class="inline-flex items-center gap-2 font-sans text-xs tracking-widest4 uppercase text-gold border border-gold px-6 py-3 hover:bg-gold hover:text-white transition-all duration-300 w-fit">
+          View on Map
+        </a>
+      </div>
+
+      <!-- Right — how to book -->
+      <div class="flex flex-col gap-6">
+
+        <div class="border border-gold/20 p-8 bg-cream/50">
+          <p class="font-sans text-xs tracking-widest3 uppercase text-gold mb-4">How to Book</p>
+          <p class="font-serif text-charcoal text-lg mb-4">Mention the Taylor Wedding</p>
+          <p class="font-sans text-sm text-stone leading-relaxed mb-6">
+            To secure your room, contact The Crown &amp; Anchor directly by phone or email and quote <span class="text-charcoal font-normal">the Taylor Wedding</span> to access our reserved block of rooms at a preferential rate.
+          </p>
+          <div class="flex flex-col gap-3">
+            <a href="tel:01302710341"
+              class="flex items-center gap-3 font-sans text-sm text-charcoal hover:text-gold transition-colors">
+              <span class="text-gold">☎</span> 01302 710341
+            </a>
+            <a href="mailto:reservations@crownandanchorbawtry.co.uk"
+              class="flex items-center gap-3 font-sans text-sm text-charcoal hover:text-gold transition-colors break-all">
+              <span class="text-gold">✉</span> reservations&#64;crownandanchorbawtry.co.uk
+            </a>
+          </div>
+        </div>
+
+        <div class="border border-gold/20 p-8 bg-cream/50">
+          <p class="font-sans text-xs tracking-widest3 uppercase text-gold mb-4">Please Note</p>
+          <p class="font-sans text-sm text-stone leading-relaxed">
+            Rooms are available on a first come, first served basis. We recommend booking early to avoid disappointment. If the hotel is fully booked, the team will be happy to suggest nearby alternatives.
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>

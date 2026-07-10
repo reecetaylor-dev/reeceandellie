@@ -1,0 +1,116 @@
+<div class="min-h-screen bg-ivory flex flex-col items-center justify-center px-6 py-16">
+
+  <!-- Name stage -->
+  @if (stage() === 'name') {
+    <div class="w-full max-w-sm text-center flex flex-col gap-8">
+      <div>
+        <p class="font-serif italic text-gold text-3xl mb-1">Reece &amp; Ellie</p>
+        <p class="font-sans text-xs tracking-widest3 uppercase text-stone">6th June 2027</p>
+      </div>
+
+      <div>
+        <h1 class="font-serif font-light text-charcoal text-3xl mb-2">Share the Day</h1>
+        <p class="font-sans text-sm text-stone leading-relaxed">
+          You have <span class="text-charcoal font-medium">20 photos</span> to capture your favourite moments. Make them count.
+        </p>
+      </div>
+
+      <form (ngSubmit)="begin()" class="flex flex-col gap-4">
+        <input type="text" [(ngModel)]="guestName" name="name"
+          placeholder="Your name"
+          class="border-b border-stone/40 bg-transparent py-3 text-center font-sans text-sm text-charcoal outline-none focus:border-gold transition-colors placeholder:text-stone/40">
+        <button type="submit" [disabled]="!guestName.trim()"
+          class="mt-2 py-4 font-sans text-xs tracking-widest3 uppercase bg-charcoal text-white hover:bg-gold transition-colors duration-300 disabled:opacity-40 disabled:cursor-not-allowed">
+          Get Started
+        </button>
+      </form>
+    </div>
+  }
+
+  <!-- Camera stage -->
+  @if (stage() === 'camera') {
+    <div class="w-full max-w-sm flex flex-col items-center gap-8">
+
+      <!-- Counter -->
+      <div class="text-center">
+        <p class="font-serif text-charcoal" style="font-size: 6rem; line-height: 1;">{{ remaining() }}</p>
+        <p class="font-sans text-xs tracking-widest3 uppercase text-stone mt-1">
+          {{ remaining() === 1 ? 'photo remaining' : 'photos remaining' }}
+        </p>
+      </div>
+
+      <!-- Arc progress -->
+      <div class="relative w-48 h-48">
+        <svg class="w-full h-full -rotate-90" viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="44" fill="none" stroke="#E8D5A3" stroke-width="2"/>
+          <circle cx="50" cy="50" r="44" fill="none" stroke="#C9A96E" stroke-width="2"
+            stroke-dasharray="276.46"
+            [attr.stroke-dashoffset]="276.46 - (276.46 * pct() / 100)"
+            style="transition: stroke-dashoffset 0.4s ease"/>
+        </svg>
+        <!-- Camera button -->
+        <button (click)="triggerCamera()" [disabled]="uploading() || remaining() === 0"
+          class="absolute inset-0 m-auto w-28 h-28 rounded-full bg-charcoal hover:bg-gold flex items-center justify-center transition-colors duration-300 disabled:opacity-40 disabled:cursor-not-allowed shadow-lg">
+          @if (uploading()) {
+            <div class="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+          } @else {
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175A2.31 2.31 0 0 1 5.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 0 0-1.134-.175 2.31 2.31 0 0 1-1.64-1.055l-.822-1.316a2.192 2.192 0 0 0-1.736-1.039 48.774 48.774 0 0 0-5.232 0 2.192 2.192 0 0 0-1.736 1.039l-.821 1.316Z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12.75a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM18.75 10.5h.008v.008h-.008V10.5Z"/>
+            </svg>
+          }
+        </button>
+      </div>
+
+      <!-- Hidden file input — opens camera on mobile -->
+      <input #fileInput type="file" accept="image/*" capture="environment"
+        class="hidden" (change)="onFile($event)">
+
+      @if (error()) {
+        <p class="font-sans text-xs text-red-500 text-center">{{ error() }}</p>
+      }
+
+      <!-- Photo strip -->
+      @if (previews().length > 0) {
+        <div class="w-full">
+          <div class="grid grid-cols-5 gap-1.5">
+            @for (src of previews(); track src) {
+              <div class="aspect-square overflow-hidden rounded-sm">
+                <img [src]="src" class="w-full h-full object-cover">
+              </div>
+            }
+            @for (empty of empties(); track $index) {
+              <div class="aspect-square border border-dashed border-stone/20 rounded-sm"></div>
+            }
+          </div>
+        </div>
+      }
+
+      @if (used() > 0) {
+        <button (click)="finish()"
+          class="font-sans text-xs tracking-widest4 uppercase text-stone border-b border-stone/30 hover:text-gold hover:border-gold transition-colors">
+          I'm done
+        </button>
+      }
+
+    </div>
+  }
+
+  <!-- Done stage -->
+  @if (stage() === 'done') {
+    <div class="w-full max-w-sm text-center flex flex-col gap-6">
+      <p class="font-serif italic text-gold text-4xl">Thank you</p>
+      <p class="font-serif text-charcoal text-xl">{{ guestName }}</p>
+      <p class="font-sans text-sm text-stone leading-relaxed">
+        Your {{ used() }} {{ used() === 1 ? 'photo has' : 'photos have' }} been sent to Reece &amp; Ellie.
+        The best ones will appear in the gallery on this site — check back after the wedding.
+      </p>
+      <div class="flex items-center justify-center gap-4 mt-4">
+        <div class="h-px w-16 bg-gold/30"></div>
+        <p class="font-serif italic text-gold">Enjoy the day</p>
+        <div class="h-px w-16 bg-gold/30"></div>
+      </div>
+    </div>
+  }
+
+</div>

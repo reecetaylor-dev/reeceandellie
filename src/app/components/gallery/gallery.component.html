@@ -1,0 +1,138 @@
+<section id="gallery" class="py-28 bg-cream">
+  <div class="max-w-6xl mx-auto px-6">
+
+    <div class="text-center mb-16">
+      <p class="font-sans text-xs tracking-widest3 uppercase text-gold mb-4">Captured Moments</p>
+      <h2 class="font-serif font-light text-charcoal text-4xl md:text-5xl mb-4">The Wedding Gallery</h2>
+      <div class="flex items-center justify-center gap-3">
+        <div class="h-px w-12 bg-gold/40"></div>
+        <div class="w-1.5 h-1.5 rounded-full bg-gold/60"></div>
+        <div class="h-px w-12 bg-gold/40"></div>
+      </div>
+    </div>
+
+    @if (hasPhotos()) {
+      <!-- Carousel -->
+      <div class="relative max-w-3xl mx-auto">
+
+        <!-- Main image -->
+        <div class="relative aspect-[4/3] overflow-hidden bg-charcoal cursor-pointer"
+          (click)="openLightbox()">
+          @for (photo of photos(); track photo; let i = $index) {
+            <img [src]="photo" alt="Wedding photo"
+              class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
+              [class.opacity-100]="i === currentIndex()"
+              [class.opacity-0]="i !== currentIndex()">
+          }
+          <!-- Overlay hint -->
+          <div class="absolute inset-0 bg-charcoal/0 hover:bg-charcoal/10 transition-colors duration-300 flex items-center justify-center">
+            <span class="opacity-0 hover:opacity-100 font-sans text-xs tracking-widest uppercase text-white bg-charcoal/50 px-4 py-2 transition-opacity duration-300">
+              Click to enlarge
+            </span>
+          </div>
+        </div>
+
+        <!-- Prev / Next -->
+        @if (photos().length > 1) {
+          <button (click)="prev()"
+            class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center bg-white/80 hover:bg-white border border-gold/30 text-charcoal hover:text-gold transition-all duration-200">
+            ‹
+          </button>
+          <button (click)="next()"
+            class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center bg-white/80 hover:bg-white border border-gold/30 text-charcoal hover:text-gold transition-all duration-200">
+            ›
+          </button>
+        }
+
+        <!-- Dot navigation -->
+        @if (photos().length > 1) {
+          <div class="flex justify-center gap-2 mt-6">
+            @for (photo of photos(); track photo; let i = $index) {
+              <button (click)="goTo(i)"
+                class="w-1.5 h-1.5 rounded-full transition-all duration-300"
+                [class.bg-gold]="i === currentIndex()"
+                [class.bg-stone]="i !== currentIndex()"
+                [class.opacity-40]="i !== currentIndex()">
+              </button>
+            }
+          </div>
+        }
+
+        <p class="text-center mt-4 font-sans text-xs text-stone/50 tracking-widest uppercase">
+          {{ currentIndex() + 1 }} / {{ photos().length }}
+        </p>
+      </div>
+
+    } @else {
+      <!-- No photos yet — explain the concept -->
+      <div class="grid md:grid-cols-2 gap-12 items-start max-w-5xl mx-auto">
+
+        <!-- QR Code -->
+        <div class="flex flex-col items-center gap-6">
+          <div class="border border-gold/30 p-6 bg-white/50 inline-block">
+            <img src="assets/qr-code.png" alt="Upload QR Code"
+              class="w-56 h-56 object-contain"
+              onerror="this.parentElement.innerHTML='<div class=\'w-56 h-56 flex items-center justify-center border border-dashed border-gold/40\'><p class=\'font-sans text-xs text-stone/50 text-center px-4\'>Place your QR code image at<br>src/assets/qr-code.png</p></div>'">
+          </div>
+          <p class="font-sans text-xs tracking-widest3 uppercase text-stone/60 text-center">
+            Scan on the day to share your photos
+          </p>
+        </div>
+
+        <!-- Explanation -->
+        <div class="flex flex-col gap-6">
+          <div>
+            <h3 class="font-serif text-2xl text-charcoal mb-3">Share the day with us</h3>
+            <p class="font-sans text-sm text-stone leading-relaxed">
+              We'd love to see the day through your eyes. Each guest is invited to share up to <span class="text-charcoal font-normal">20 photos</span> from the wedding — whether that's the ceremony, the dancing, a quiet moment, or a candid with friends.
+            </p>
+          </div>
+
+          <div class="flex flex-col gap-4">
+            @for (step of steps; track step.number) {
+              <div class="flex gap-4 items-start">
+                <div class="w-8 h-8 flex-shrink-0 flex items-center justify-center border border-gold/40 font-serif text-gold text-sm">
+                  {{ step.number }}
+                </div>
+                <div>
+                  <p class="font-sans text-xs tracking-widest4 uppercase text-gold mb-1">{{ step.heading }}</p>
+                  <p class="font-sans text-sm text-stone">{{ step.body }}</p>
+                </div>
+              </div>
+            }
+          </div>
+
+          <div class="border-l-2 border-gold/30 pl-5 mt-2">
+            <p class="font-sans text-xs text-stone/70 leading-relaxed italic">
+              All photos will be reviewed and the best ones added to this gallery — a permanent memory of our day that everyone can enjoy for years to come.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    }
+
+  </div>
+
+  <!-- Lightbox -->
+  @if (lightboxOpen() && current()) {
+    <div class="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4"
+      (click)="closeLightbox()">
+      <button (click)="closeLightbox()"
+        class="absolute top-6 right-6 font-sans text-xs tracking-widest uppercase text-white/60 hover:text-white transition-colors">
+        Close ✕
+      </button>
+      <button (click)="prev(); $event.stopPropagation()"
+        class="absolute left-6 top-1/2 -translate-y-1/2 text-white/60 hover:text-white text-4xl transition-colors">
+        ‹
+      </button>
+      <img [src]="current()!" alt="Wedding photo"
+        class="max-w-full max-h-[85vh] object-contain"
+        (click)="$event.stopPropagation()">
+      <button (click)="next(); $event.stopPropagation()"
+        class="absolute right-6 top-1/2 -translate-y-1/2 text-white/60 hover:text-white text-4xl transition-colors">
+        ›
+      </button>
+    </div>
+  }
+</section>
