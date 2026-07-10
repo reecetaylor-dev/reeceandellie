@@ -11,7 +11,7 @@ export class VenueComponent {
 
   details = [
     { icon: '◎', label: 'Address', value: 'Bawtry Hall, Bawtry, Doncaster, DN10 6JH' },
-    { icon: '◷', label: 'Date', value: 'Saturday, 6th June 2027' },
+    { icon: '◷', label: 'Date', value: 'Sunday, 6th June 2027' },
     { icon: '☎', label: 'Dress Code', value: 'Suits & occasionwear — come looking your best!' },
     { icon: '⌂', label: 'Accommodation', value: 'The Crown & Anchor Hotel, a 2-minute walk away — see below for booking details' },
   ];
