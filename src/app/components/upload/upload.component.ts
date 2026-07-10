@@ -53,10 +53,18 @@ export class UploadComponent implements OnInit {
   private getOrCreateDeviceId(): string {
     let id = localStorage.getItem('wedding_device_id');
     if (!id) {
-      id = 'device-' + crypto.randomUUID();
+      id = 'device-' + this.uuid();
       localStorage.setItem('wedding_device_id', id);
     }
     return id;
+  }
+
+  private uuid(): string {
+    if (typeof crypto.randomUUID === 'function') return crypto.randomUUID();
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+      const r = Math.random() * 16 | 0;
+      return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+    });
   }
 
   async begin() {
