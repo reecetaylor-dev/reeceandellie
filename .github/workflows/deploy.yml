@@ -27,7 +27,7 @@ jobs:
           sed -i "s|%%SUPABASE_KEY%%|${{ secrets.SUPABASE_KEY }}|g" src/environments/environment.ts
 
       - name: Build
-        run: npm run build -- --base-href /reeceandellie/
+        run: npm run build -- --base-href /
 
       - name: Fix routing (copy index.html → 404.html)
         run: cp dist/reeceandellie/browser/index.html dist/reeceandellie/browser/404.html
@@ -37,3 +37,4 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: dist/reeceandellie/browser
+          cname: reeceandellie.com
