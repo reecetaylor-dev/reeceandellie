@@ -1,46 +1,49 @@
 <section id="hero" class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-ivory">
 
-  <!-- Subtle warm radial glow -->
-  <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_#F3EFE6_0%,_#FAF8F4_65%,_#EDE8DE_100%)]"></div>
+  <!-- Hero photo -->
+  <div class="absolute inset-0 z-0"
+    style="background-image: url('assets/hero-bg2.jpg'); background-size: cover; background-position: center 20%;"></div>
 
-  <!-- Optional hero photo overlay — place hero-bg.jpg in src/assets/ -->
-  <div class="absolute inset-0 z-0 opacity-10"
-    style="background-image: url('assets/hero-bg.jpg'); background-size: cover; background-position: center;"></div>
+  <!-- Dark overlay for contrast -->
+  <div class="absolute inset-0 z-10" style="background: rgba(44,44,44,0.52);"></div>
+
+  <!-- Vignette to draw focus to centre -->
+  <div class="absolute inset-0 z-20 bg-[radial-gradient(ellipse_at_center,_transparent_30%,_rgba(44,44,44,0.35)_100%)]"></div>
 
   <!-- Content -->
-  <div class="relative z-30 text-center px-8 py-24">
+  <div class="relative z-30 text-center px-8 py-24 w-full">
 
-    <p class="font-sans text-xs tracking-widest uppercase text-stone mb-10">
+    <p class="font-sans text-xs tracking-widest uppercase text-white/70 mb-10">
       Together Forever
     </p>
 
     <!-- Decorative top line -->
     <div class="flex items-center justify-center gap-4 mb-8">
-      <div class="h-px w-16 md:w-32 bg-gradient-to-r from-transparent to-gold/50"></div>
-      <div class="w-1 h-1 rounded-full bg-gold/60"></div>
-      <div class="h-px w-16 md:w-32 bg-gradient-to-l from-transparent to-gold/50"></div>
+      <div class="h-px w-16 md:w-32 bg-gradient-to-r from-transparent to-gold/70"></div>
+      <div class="w-1 h-1 rounded-full bg-gold/80"></div>
+      <div class="h-px w-16 md:w-32 bg-gradient-to-l from-transparent to-gold/70"></div>
     </div>
 
-    <h1 class="font-serif font-light text-charcoal text-7xl md:text-9xl tracking-wider leading-none mb-2">
+    <h1 class="font-serif font-light text-white text-7xl md:text-9xl tracking-wider leading-none mb-2">
       Reece
     </h1>
 
     <p class="font-serif italic text-gold text-4xl md:text-6xl my-4 leading-none">&amp;</p>
 
-    <h1 class="font-serif font-light text-charcoal text-7xl md:text-9xl tracking-wider leading-none mb-8">
+    <h1 class="font-serif font-light text-white text-7xl md:text-9xl tracking-wider leading-none mb-8">
       Ellie
     </h1>
 
     <!-- Decorative bottom line -->
     <div class="flex items-center justify-center gap-4 mb-10">
-      <div class="h-px w-16 md:w-32 bg-gradient-to-r from-transparent to-gold/50"></div>
-      <div class="w-1 h-1 rounded-full bg-gold/60"></div>
-      <div class="h-px w-16 md:w-32 bg-gradient-to-l from-transparent to-gold/50"></div>
+      <div class="h-px w-16 md:w-32 bg-gradient-to-r from-transparent to-gold/70"></div>
+      <div class="w-1 h-1 rounded-full bg-gold/80"></div>
+      <div class="h-px w-16 md:w-32 bg-gradient-to-l from-transparent to-gold/70"></div>
     </div>
 
     <div class="flex flex-col items-center gap-2">
-      <p class="font-sans text-xs tracking-widest uppercase text-stone">Are Getting Married</p>
-      <p class="font-serif text-charcoal text-2xl md:text-3xl font-light tracking-wider mt-2">
+      <p class="font-sans text-xs tracking-widest uppercase text-white/70">Are Getting Married</p>
+      <p class="font-serif text-white text-2xl md:text-3xl font-light tracking-wider mt-2">
         Saturday, 6th June 2027
       </p>
       <p class="font-sans text-xs tracking-widest uppercase text-gold mt-1">

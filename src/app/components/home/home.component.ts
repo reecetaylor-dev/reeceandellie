@@ -8,6 +8,7 @@ import { VenueComponent } from '../venue/venue.component';
 import { AccommodationComponent } from '../accommodation/accommodation.component';
 import { RegistryComponent } from '../registry/registry.component';
 import { GalleryComponent } from '../gallery/gallery.component';
+import { NoteComponent } from '../note/note.component';
 import { FooterComponent } from '../footer/footer.component';
 
 @Component({
@@ -22,6 +23,7 @@ import { FooterComponent } from '../footer/footer.component';
     AccommodationComponent,
     RegistryComponent,
     GalleryComponent,
+    NoteComponent,
     FooterComponent,
   ],
   templateUrl: './home.component.html',

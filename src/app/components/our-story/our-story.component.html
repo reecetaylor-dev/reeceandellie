@@ -16,8 +16,15 @@
       <div class="absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-gold/40 via-gold/20 to-transparent -translate-x-1/2"></div>
 
       <div class="flex flex-col gap-16">
-        @for (event of timeline; track event.year; let odd = $odd) {
-          <div class="relative flex items-center" [class.flex-row-reverse]="odd">
+        @for (event of timeline; track event.year; let odd = $odd; let i = $index) {
+          <div class="story-item relative flex items-center transition-all duration-700 ease-out"
+            [attr.data-index]="i"
+            [class.flex-row-reverse]="odd"
+            [class.opacity-0]="!visible().has(i)"
+            [class.opacity-100]="visible().has(i)"
+            [class.-translate-x-10]="!visible().has(i) && !odd"
+            [class.translate-x-10]="!visible().has(i) && odd"
+            [class.translate-x-0]="visible().has(i)">
 
             <!-- Text side -->
             <div class="w-4/12 px-6" [class.text-right]="!odd">
@@ -28,10 +35,11 @@
 
             <!-- Centre photo -->
             <div class="w-4/12 flex justify-center flex-shrink-0 z-10">
-              <div class="w-56 h-56 rounded-full border-2 border-gold/50 overflow-hidden bg-cream shadow-sm flex items-center justify-center">
+              <div class="w-40 h-40 rounded-full border-2 border-gold/50 overflow-hidden bg-cream shadow-sm flex items-center justify-center">
                 @if (hasPhoto(event.photo)) {
                   <img [src]="event.photo" [alt]="event.title"
                     class="w-full h-full object-cover"
+                    [style.objectPosition]="event.pos || 'center'"
                     (error)="onPhotoError(event.photo)">
                 } @else {
                   <span class="font-serif italic text-gold text-3xl">R &amp; E</span>
@@ -48,8 +56,13 @@
 
     <!-- Mobile timeline — photo above text, stacked -->
     <div class="md:hidden flex flex-col gap-12">
-      @for (event of timeline; track event.year) {
-        <div class="flex flex-col items-center gap-4 text-center">
+      @for (event of timeline; track event.year; let i = $index) {
+        <div class="story-item flex flex-col items-center gap-4 text-center transition-all duration-700 ease-out"
+          [attr.data-index]="i"
+          [class.opacity-0]="!visible().has(i)"
+          [class.opacity-100]="visible().has(i)"
+          [class.translate-y-8]="!visible().has(i)"
+          [class.translate-y-0]="visible().has(i)">
           <div class="w-40 h-40 rounded-full border-2 border-gold/50 overflow-hidden bg-cream shadow-sm flex-shrink-0 flex items-center justify-center">
             @if (hasPhoto(event.photo)) {
               <img [src]="event.photo" [alt]="event.title"

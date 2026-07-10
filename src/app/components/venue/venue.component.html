@@ -11,47 +11,44 @@
       </div>
     </div>
 
-    <div class="grid md:grid-cols-2 gap-12 items-center mb-20">
-      <!-- Venue image -->
-      <div class="relative aspect-[4/3] bg-gradient-to-br from-cream to-gold-light/30 overflow-hidden">
-        <img src="assets/venue.jpg" alt="Bawtry Hall"
-          class="w-full h-full object-cover"
-          (error)="imgError = true"
-          [class.hidden]="imgError">
-        @if (imgError) {
-          <div class="absolute inset-0 flex items-center justify-center">
-            <p class="font-serif italic text-stone/60 text-xl">Bawtry Hall</p>
-          </div>
-        }
-        <div class="absolute inset-0 border border-gold/20 pointer-events-none"></div>
-      </div>
-
-      <div class="flex flex-col gap-8">
-        <div>
-          <h3 class="font-serif text-3xl text-charcoal mb-3">Bawtry Hall</h3>
-          <p class="font-sans text-sm text-stone leading-relaxed">
-            Set in stunning South Yorkshire countryside, Bawtry Hall is one of the region's most prestigious wedding venues. This magnificent Grade II listed Georgian manor house provides an exquisite backdrop for our special day.
-          </p>
+    <!-- Full-width venue photo -->
+    <div class="relative aspect-[16/7] overflow-hidden mb-16 border border-gold/20">
+      <img src="assets/venue.jpg" alt="Bawtry Hall"
+        class="w-full h-full object-cover object-center"
+        (error)="imgError = true"
+        [class.hidden]="imgError">
+      @if (imgError) {
+        <div class="absolute inset-0 flex items-center justify-center bg-cream">
+          <p class="font-serif italic text-stone/60 text-xl">Bawtry Hall</p>
         </div>
+      }
+    </div>
 
-        <div class="flex flex-col gap-5">
-          @for (detail of details; track detail.label) {
-            <div class="flex gap-4 items-start">
-              <div class="w-8 h-8 flex-shrink-0 flex items-center justify-center border border-gold/40 mt-0.5">
-                <span class="text-gold text-sm">{{ detail.icon }}</span>
-              </div>
-              <div>
-                <p class="font-sans text-xs tracking-widest4 uppercase text-gold mb-1">{{ detail.label }}</p>
-                <p class="font-sans text-sm text-charcoal">{{ detail.value }}</p>
-              </div>
-            </div>
-          }
-        </div>
-
+    <!-- Details grid -->
+    <div class="grid md:grid-cols-2 gap-12 items-start mb-20">
+      <div class="flex flex-col gap-4">
+        <h3 class="font-serif text-3xl text-charcoal mb-1">Bawtry Hall</h3>
+        <p class="font-sans text-sm text-stone leading-relaxed">
+          Set in stunning South Yorkshire countryside, Bawtry Hall is one of the region's most prestigious wedding venues. This magnificent Grade II listed Georgian manor house provides an exquisite backdrop for our special day.
+        </p>
         <a href="https://maps.google.com/?q=Bawtry+Hall,+Bawtry,+Doncaster" target="_blank"
-          class="inline-flex items-center gap-2 font-sans text-xs tracking-widest4 uppercase text-gold border border-gold px-6 py-3 hover:bg-gold hover:text-white transition-all duration-300 w-fit">
+          class="inline-flex items-center gap-2 font-sans text-xs tracking-widest4 uppercase text-gold border border-gold px-6 py-3 hover:bg-gold hover:text-white transition-all duration-300 w-fit mt-2">
           View on Map
         </a>
+      </div>
+
+      <div class="flex flex-col gap-5">
+        @for (detail of details; track detail.label) {
+          <div class="flex gap-4 items-start">
+            <div class="w-8 h-8 flex-shrink-0 flex items-center justify-center border border-gold/40 mt-0.5">
+              <span class="text-gold text-sm">{{ detail.icon }}</span>
+            </div>
+            <div>
+              <p class="font-sans text-xs tracking-widest4 uppercase text-gold mb-1">{{ detail.label }}</p>
+              <p class="font-sans text-sm text-charcoal">{{ detail.value }}</p>
+            </div>
+          </div>
+        }
       </div>
     </div>
 

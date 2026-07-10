@@ -11,7 +11,8 @@
       @for (link of links; track link.id) {
         <li>
           <button (click)="scrollTo(link.id)"
-            class="text-charcoal hover:text-gold transition-colors">
+            [ngClass]="scrolled() ? 'text-charcoal' : 'text-white/90'"
+            class="hover:text-gold transition-colors">
             {{ link.label }}
           </button>
         </li>
@@ -19,12 +20,12 @@
     </ul>
 
     <button (click)="menuOpen.set(!menuOpen())" class="md:hidden flex flex-col gap-1.5 p-1">
-      <span class="block w-6 h-px bg-charcoal transition-all duration-300"
-        [ngClass]="menuOpen() ? 'rotate-45 translate-y-2' : ''"></span>
-      <span class="block w-6 h-px bg-charcoal transition-all duration-300"
-        [ngClass]="menuOpen() ? 'opacity-0' : ''"></span>
-      <span class="block w-6 h-px bg-charcoal transition-all duration-300"
-        [ngClass]="menuOpen() ? '-rotate-45 -translate-y-2' : ''"></span>
+      <span class="block w-6 h-px transition-all duration-300"
+        [ngClass]="menuOpen() ? 'rotate-45 translate-y-2 bg-charcoal' : scrolled() ? 'bg-charcoal' : 'bg-white'"></span>
+      <span class="block w-6 h-px transition-all duration-300"
+        [ngClass]="menuOpen() ? 'opacity-0 bg-charcoal' : scrolled() ? 'bg-charcoal' : 'bg-white'"></span>
+      <span class="block w-6 h-px transition-all duration-300"
+        [ngClass]="menuOpen() ? '-rotate-45 -translate-y-2 bg-charcoal' : scrolled() ? 'bg-charcoal' : 'bg-white'"></span>
     </button>
   </div>
 
