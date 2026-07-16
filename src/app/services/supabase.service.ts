@@ -55,6 +55,7 @@ export class SupabaseService {
     main: string;
     dessert: string;
     dietary_notes: string;
+    is_child: boolean;
   }): Promise<void> {
     const { error } = await this.client.from('menu_choices').insert({ id, ...data });
     if (error) throw error;
@@ -66,6 +67,7 @@ export class SupabaseService {
     main: string;
     dessert: string;
     dietary_notes: string;
+    is_child: boolean;
   }): Promise<void> {
     const { error } = await this.client.from('menu_choices').update(data).eq('id', id);
     if (error) throw error;

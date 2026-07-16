@@ -11,6 +11,7 @@ export interface MenuEntry {
   main: string;
   dessert: string;
   dietaryNotes: string;
+  isChild: boolean;
 }
 
 @Component({
@@ -47,6 +48,24 @@ export class MenuComponent implements OnInit {
     { value: 'Dark Chocolate Brownie', desc: 'clotted cream ice cream', tags: [] as string[] },
   ];
 
+  kidStarters = [
+    { value: 'Heinz Tomato Soup', desc: 'with bread roll' },
+    { value: 'Melon', desc: 'fresh seasonal melon' },
+    { value: 'Garlic & Mozzarella Bread', desc: 'toasted garlic bread with melted mozzarella' },
+  ];
+
+  kidMains = [
+    { value: 'Chicken Nuggets', desc: 'chips & beans' },
+    { value: 'Sausage & Mash', desc: 'with peas' },
+    { value: 'Margarita Pizza', desc: 'classic tomato & mozzarella' },
+  ];
+
+  kidDesserts = [
+    { value: 'Chocolate Brownie & Ice Cream', desc: '' },
+    { value: 'Strawberry & Marshmallow Kebab', desc: 'with chocolate sauce' },
+    { value: 'Ice Cream Sundae', desc: '' },
+  ];
+
   entries = signal<MenuEntry[]>([]);
   editingId = signal<string | null>(null);
 
@@ -55,6 +74,7 @@ export class MenuComponent implements OnInit {
   main = '';
   dessert = '';
   dietaryNotes = '';
+  isChild = false;
 
   submitting = signal(false);
   error = signal('');
@@ -78,6 +98,7 @@ export class MenuComponent implements OnInit {
     this.main = '';
     this.dessert = '';
     this.dietaryNotes = '';
+    this.isChild = false;
     this.showForm.set(true);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
@@ -89,8 +110,15 @@ export class MenuComponent implements OnInit {
     this.main = entry.main;
     this.dessert = entry.dessert;
     this.dietaryNotes = entry.dietaryNotes;
+    this.isChild = entry.isChild ?? false;
     this.showForm.set(true);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  onTypeChange() {
+    this.starter = '';
+    this.main = '';
+    this.dessert = '';
   }
 
   cancel() {
@@ -120,13 +148,14 @@ export class MenuComponent implements OnInit {
       main: this.main,
       dessert: this.dessert,
       dietary_notes: this.dietaryNotes.trim(),
+      is_child: this.isChild,
     };
     try {
       const id = this.editingId();
       if (id) {
         await this.supabase.updateMenuChoice(id, data);
         this.entries.update(es => es.map(e => e.id === id
-          ? { id, name: data.name, starter: data.starter, main: data.main, dessert: data.dessert, dietaryNotes: data.dietary_notes }
+          ? { id, name: data.name, starter: data.starter, main: data.main, dessert: data.dessert, dietaryNotes: data.dietary_notes, isChild: data.is_child }
           : e
         ));
       } else {
@@ -135,6 +164,7 @@ export class MenuComponent implements OnInit {
         this.entries.update(es => [...es, {
           id: newId, name: data.name, starter: data.starter,
           main: data.main, dessert: data.dessert, dietaryNotes: data.dietary_notes,
+          isChild: data.is_child,
         }]);
       }
       localStorage.setItem(LS_KEY, JSON.stringify(this.entries()));
