@@ -49,5 +49,27 @@ export class SupabaseService {
     return urls;
   }
 
+  async submitMenuChoice(id: string, data: {
+    name: string;
+    starter: string;
+    main: string;
+    dessert: string;
+    dietary_notes: string;
+  }): Promise<void> {
+    const { error } = await this.client.from('menu_choices').insert({ id, ...data });
+    if (error) throw error;
+  }
+
+  async updateMenuChoice(id: string, data: {
+    name: string;
+    starter: string;
+    main: string;
+    dessert: string;
+    dietary_notes: string;
+  }): Promise<void> {
+    const { error } = await this.client.from('menu_choices').update(data).eq('id', id);
+    if (error) throw error;
+  }
+
   get limit() { return LIMIT; }
 }
