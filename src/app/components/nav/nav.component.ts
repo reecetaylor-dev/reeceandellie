@@ -1,9 +1,10 @@
 import { Component, HostListener, signal } from '@angular/core';
 import { NgClass } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
-  imports: [NgClass],
+  imports: [NgClass, RouterLink],
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.css'
 })

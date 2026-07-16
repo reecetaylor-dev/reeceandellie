@@ -17,6 +17,13 @@
           </button>
         </li>
       }
+      <li>
+        <a routerLink="/menu"
+          [ngClass]="scrolled() ? 'text-charcoal' : 'text-white/90'"
+          class="hover:text-gold transition-colors">
+          Menu
+        </a>
+      </li>
     </ul>
 
     <button (click)="menuOpen.set(!menuOpen())" class="md:hidden flex flex-col gap-1.5 p-1">
@@ -40,6 +47,12 @@
             </button>
           </li>
         }
+        <li>
+          <a routerLink="/menu" (click)="menuOpen.set(false)"
+            class="block w-full py-3 px-6 text-left font-sans text-xs tracking-widest uppercase text-charcoal hover:text-gold transition-colors">
+            Menu
+          </a>
+        </li>
       </ul>
     </div>
   }
