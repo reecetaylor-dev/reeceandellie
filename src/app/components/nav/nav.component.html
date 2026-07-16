@@ -7,12 +7,12 @@
       R &amp; E
     </button>
 
-    <ul class="hidden md:flex gap-8 font-sans text-xs tracking-widest uppercase">
+    <ul class="hidden md:flex gap-8 font-sans text-xs">
       @for (link of links; track link.id) {
         <li>
           <button (click)="scrollTo(link.id)"
             [ngClass]="scrolled() ? 'text-charcoal' : 'text-white/90'"
-            class="hover:text-gold transition-colors">
+            class="tracking-widest uppercase hover:text-gold transition-colors">
             {{ link.label }}
           </button>
         </li>
@@ -20,7 +20,7 @@
       <li>
         <a routerLink="/menu"
           [ngClass]="scrolled() ? 'text-charcoal' : 'text-white/90'"
-          class="hover:text-gold transition-colors">
+          class="tracking-widest uppercase hover:text-gold transition-colors">
           Menu
         </a>
       </li>
